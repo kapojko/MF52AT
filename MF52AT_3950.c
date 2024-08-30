@@ -1,3 +1,4 @@
+#include "MinUnit.h"
 #include "MF52AT_3950.h"
 
 // normal value
@@ -186,12 +187,12 @@ uint32_t mf52at_3950_100k_r[MF52AT_3950_TCOUNT] = {
 };
 
 int MF52AT_3950_100k_GetTemp(int r) {
-    if (r < mf52at_3950_100k_r[0]) {
+    if (r > mf52at_3950_100k_r[0]) {
         return MF52AT_3950_TMIN;
     }
     
     for (int i = 0; i < MF52AT_3950_TCOUNT - 1; i++) {
-        if (r >= mf52at_3950_100k_r[i] && r <= mf52at_3950_100k_r[i + 1]) {
+        if (r <= mf52at_3950_100k_r[i] && r > mf52at_3950_100k_r[i + 1]) {
             return MF52AT_3950_TMIN + i * MF52AT_3950_TSTEP;
         }
     }
@@ -200,10 +201,10 @@ int MF52AT_3950_100k_GetTemp(int r) {
 }
 
 int MF52AT_3950_GetTemp(int r, int r25_kohm) {
-    return MF52AT_3950_100k_GetTemp(r * r25_kohm / 100);
+    return MF52AT_3950_100k_GetTemp(r * 100 / r25_kohm);
 }
 
-const char *MF52AT_UnitTest(void) {
+const char *MF52AT_3950_UnitTest(void) {
     int temp;
 
     temp = MF52AT_3950_100k_GetTemp(100000);

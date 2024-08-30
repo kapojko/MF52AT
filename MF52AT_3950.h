@@ -14,6 +14,6 @@ extern uint32_t mf52at_3950_100k_r[MF52AT_3950_TCOUNT];
 int MF52AT_3950_100k_GetTemp(int r);
 int MF52AT_3950_GetTemp(int r, int r25_kohm);
 
-const char *MF52AT_UnitTest(void);
+const char *MF52AT_3950_UnitTest(void);
 
 #endif // MF52AT_3950_H
